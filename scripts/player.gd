@@ -38,6 +38,7 @@ func set_active(active):
 	set_physics_process(active)
 	set_process(active)
 	set_process_input(active)
+	set_process_unhandled_key_input(active)
 
 func pause_or_unpause_game(): ## MOVER ESTO A UN CONTROLADOR DE GUI QUE NO SE PUEDA PAUSAR (PORQUE EVIDENTEMENTE ESO CONGELA EL JUEGO, AL NO PODER PROCESAR INPUTS)
 	var isPaused = get_tree().paused
