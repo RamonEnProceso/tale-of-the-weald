@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cfmgsgc4u1jw2"]
+[gd_scene load_steps=36 format=3 uid="uid://cfmgsgc4u1jw2"]
 
 [ext_resource type="Script" uid="uid://dn2xyye3lsd5a" path="res://scripts/player.gd" id="1_56udc"]
 [ext_resource type="Texture2D" uid="uid://c378r060garon" path="res://assets/player/sp_fall/sp_fall.png" id="2_d7btg"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://cwik3aephgg34" path="res://assets/player/sp_run/run_0004.png" id="15_pkxds"]
 [ext_resource type="Texture2D" uid="uid://cmw0roy8kohjp" path="res://assets/player/sp_run/run_0005.png" id="16_b8kkg"]
 [ext_resource type="Texture2D" uid="uid://l5kvbtin3fjq" path="res://assets/player/sp_run/run_0006.png" id="17_6rdx2"]
+[ext_resource type="Texture2D" uid="uid://b5wy3c568r34q" path="res://assets/player/shadow.png" id="19_0n276"]
 [ext_resource type="Script" uid="uid://deoc8bq51pmnd" path="res://scripts/camera_controls.gd" id="19_nos2o"]
 [ext_resource type="Script" uid="uid://bd1wjng35sdff" path="res://scenes/camera_follow.gd" id="20_66bo7"]
 [ext_resource type="Script" uid="uid://dtmbguol6uyqt" path="res://scripts/components/player_hitbox_component.gd" id="24_bxieb"]
@@ -108,6 +109,8 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_0n276"]
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_66bo7"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_joi77"]
@@ -126,13 +129,27 @@ shape = SubResource("CapsuleShape3D_uj7mf")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(-0.393728, 0, 0, 0, -0.393728, 0, 0, 0, 0.31716675, 0, 0.426572, 0)
 layers = 2
+cast_shadow = 0
 gi_mode = 2
 billboard = 2
 alpha_cut = 2
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_xc70a")
-animation = &"fall"
+animation = &"idle"
+
+[node name="ShadowRay" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.235, 0)
+shape = SubResource("BoxShape3D_0n276")
+target_position = Vector3(0.07, -20, 0)
+collide_with_areas = true
+
+[node name="ShadowDecal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+size = Vector3(2, 1, 2)
+texture_albedo = ExtResource("19_0n276")
+normal_fade = 0.4
+cull_mask = 1048573
 
 [node name="SpringArmPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0)
