@@ -7,6 +7,7 @@ class_name Player
 @onready var healthComponent : HealthComponent = $HealthComponent
 @onready var collectableComponent : CollectableComponent = $CollectableComponent
 @onready var camera : Camera3D = $springPivot3D/Camera3D
+@onready var spore_attack_scene = load("res://scenes/spore_attack.tscn")
 
 @onready var shadow_ray = $ShadowRay
 @onready var shadow_decal : Decal = $ShadowDecal
@@ -22,6 +23,9 @@ func _ready():
 
 
 func _unhandled_key_input(event):
+	if Input.is_action_pressed("game_attack"):
+		if $SporeAttackCooldown.timeout:
+			spore_attack()
 	stateMachine.process_input(event)
 
 func update_shadow_logic():
@@ -91,3 +95,15 @@ func apply_squash_and_stretch(target_modifier: Vector3, duration_in: float = 0.1
 	
 	tween.tween_property(animations, "scale", target_scale, duration_in)
 	tween.tween_property(animations, "scale", original_sprite_scale, duration_out)
+
+func spore_attack():
+	var attack_instance = spore_attack_scene.instantiate()
+	add_child(attack_instance)
+	attack_instance.position = Vector2.ZERO	
+	await get_tree().create_timer(1).timeout
+	queue_free()
+	$SporeAttackCooldown.start()
+	
+	
+	
+	
