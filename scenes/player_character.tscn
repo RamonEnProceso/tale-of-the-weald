@@ -229,3 +229,7 @@ metadata/_custom_type_script = "uid://dwjt6qd64607k"
 [node name="CollectableComponent" type="Node" parent="." node_paths=PackedStringArray("PARENT")]
 script = ExtResource("27_bxieb")
 PARENT = NodePath("..")
+
+[node name="SporeAttackCooldown" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
