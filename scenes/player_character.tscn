@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://l5kvbtin3fjq" path="res://assets/player/sp_run/run_0006.png" id="17_6rdx2"]
 [ext_resource type="Texture2D" uid="uid://b5wy3c568r34q" path="res://assets/player/shadow.png" id="19_0n276"]
 [ext_resource type="Script" uid="uid://deoc8bq51pmnd" path="res://scripts/camera_controls.gd" id="19_nos2o"]
-[ext_resource type="Script" uid="uid://bd1wjng35sdff" path="res://scenes/camera_follow.gd" id="20_66bo7"]
+[ext_resource type="Script" uid="uid://bd1wjng35sdff" path="res://scripts/camera_follow.gd" id="20_66bo7"]
 [ext_resource type="Script" uid="uid://dtmbguol6uyqt" path="res://scripts/components/player_hitbox_component.gd" id="24_bxieb"]
 [ext_resource type="Script" uid="uid://bsluy0jer8fnu" path="res://scripts/components/collectable_component.gd" id="27_bxieb"]
 
@@ -231,5 +231,5 @@ script = ExtResource("27_bxieb")
 PARENT = NodePath("..")
 
 [node name="SporeAttackCooldown" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 one_shot = true

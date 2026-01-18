@@ -19,3 +19,7 @@ func summon_attack(state : eState):
 	attackBallInstance.queue_free()
 	cooldown_timer.start()
 	state_machine.change_state(state)
+
+
+func die():
+	self.queue_free()

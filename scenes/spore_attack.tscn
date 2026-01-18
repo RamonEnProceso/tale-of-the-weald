@@ -1,26 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1f460s5e8xfw"]
+[gd_scene load_steps=5 format=3 uid="uid://c1f460s5e8xfw"]
 
 [ext_resource type="Script" uid="uid://dwjt6qd64607k" path="res://scripts/attack.gd" id="1_7inwn"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6coi1"]
+radius = 1.0
 
-[node name="SporeAttack" type="Node2D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7inwn"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.5529412, 0.41960785, 1, 1)
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_6coi1"]
+material = SubResource("StandardMaterial3D_7inwn")
+radius = 2.5
+height = 5.0
+
+[node name="SporeAttack" type="StaticBody3D"]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="PlayerAttackSpore" type="Node" parent="."]
 script = ExtResource("1_7inwn")
-
-[node name="SporeAttack" type="StaticBody3D" parent="."]
-
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="SporeAttack"]
-
-[node name="PlayerAttackSpore" type="Node" parent="SporeAttack"]
-script = ExtResource("1_7inwn")
+ATTACK_DAMAGE = 5.0
 metadata/_custom_type_script = "uid://dwjt6qd64607k"
 
-[node name="Area3D" type="Area3D" parent="SporeAttack"]
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 0
-collision_mask = 4
+collision_mask = 6
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SporeAttack/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 shape = SubResource("SphereShape3D_6coi1")
 
-[connection signal="area_entered" from="SporeAttack/Area3D" to="." method="_on_area_3d_area_entered"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transparency = 0.5
+mesh = SubResource("SphereMesh_6coi1")
+skeleton = NodePath("../Area3D")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_entered" from="Area3D" to="PlayerAttackSpore" method="_on_area_3d_area_entered"]
